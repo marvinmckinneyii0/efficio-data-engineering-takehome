@@ -293,4 +293,4 @@ The supplied raw JSON files are confidential and therefore excluded from version
 
 Generated Parquet output is also excluded from Git.
 
-Only source code, documentation, tests, and CI configuration are committed.****
+Only source code, documentation, tests, and CI configuration are committed.
