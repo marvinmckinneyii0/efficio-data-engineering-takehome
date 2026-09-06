@@ -40,7 +40,21 @@ This document tracks the explicit requirements from the Efficio Data Engineering
 
 ## Working Assumptions and Design Decisions
 
-The following assumptions and design decisions are based on the supplied Company A, B, and C datasets. They will be revisited if profiling reveals contradictory evidence.
+- [x] The enrichment will use a left join so every detailed company record is preserved even when hierarchy information is missing.
+
+- [x] Parent relationships will be derived from each family-tree member's `corporateLinkage.parent.duns`.
+- [x] Child lists will not be stored separately in the relational model when the same direct relationship can be derived from the parent reference.
+
+- [x] The primary Parquet output will contain one row per detailed `Data_blocks.json` company record.
+- [x] Family-tree data will enrich the detailed company record rather than expand the output to every family-tree member.
+
+- [x] The ERD will represent a normalized logical relational model.
+- [x] The take-home will not deploy a physical relational database because the brief asks for a schema design and ERD, not a database implementation.
+- [x] The Parquet output may be denormalized even though the proposed relational model is normalized.
+
+- [x] Use pandas for the in-memory transformation because it is sufficient for the supplied datasets and keeps the implementation simple.
+- [x] Use PyArrow for Parquet output.
+- [x] Interpret continuous pipeline integration as automated CI checks using GitHub Actions.
 
 ### Identifier and Join Strategy
 
@@ -69,9 +83,12 @@ The following assumptions and design decisions are based on the supplied Company
 
 ### Data Model
 
-- [ ] The ERD will represent a normalized logical relational model.
-- [ ] The take-home will not deploy a physical relational database because the brief asks for a schema design and ERD, not a database implementation.
-- [ ] The Parquet output may be denormalized even though the proposed relational model is normalized.
+### Data Modelling
+- [x] Design a relational database schema for the provided company data.
+- [x] Minimize redundancy while enabling efficient querying.
+- [x] Define appropriate primary key and foreign key relationships.
+- [x] Support hierarchical company relationships such as parent-subsidiary linkages.
+- [x] Provide an Entity-Relationship Diagram.
 
 ### Implementation Scope
 
