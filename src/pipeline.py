@@ -194,35 +194,6 @@ def process_company_folder(company_folder: Path) -> dict:
         company_folder.name,
     )
 
-    hierarchy_lookup = build_hierarchy_lookup(
-        family_tree,
-        str(family_tree_path),
-    )
-
-    # Left-join semantics: keep the detailed company record even if
-    # no corresponding hierarchy record is available.
-    hierarchy = hierarchy_lookup.get(
-        company_duns,
-        {
-            "Parent_Company_ID": None,
-            "Hierarchy_Level": None,
-        },
-    )
-
-    global_ultimate_duns = family_tree.get("globalUltimateDuns")
-    if global_ultimate_duns is not None:
-        global_ultimate_duns = str(global_ultimate_duns).strip()
-
-    return {
-        "Company_ID": company_duns,
-        "Company_Name": data_blocks.get("primaryName"),
-        "Parent_Company_ID": hierarchy["Parent_Company_ID"],
-        "Hierarchy_Level": hierarchy["Hierarchy_Level"],
-        "Global_Ultimate_ID": global_ultimate_duns,
-        "Source_Company": company_folder.name,
-    }
-
-
 def validate_output(df: pd.DataFrame, expected_rows: int) -> None:
     """Run simple data-quality checks before writing the Parquet output."""
     if len(df) != expected_rows:
