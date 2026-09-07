@@ -111,9 +111,10 @@ def profile_company(label: str, data_blocks_path: Path, family_tree_path: Path) 
     print(f"Unresolved parent references: {len(unresolved_parent_duns)}")
 
 
-for company_label, paths in COMPANIES.items():
-    profile_company(
-        company_label,
-        paths["data_blocks"],
-        paths["family_tree"],
-    )
+if __name__ == "__main__":
+    for company_label, paths in COMPANIES.items():
+        profile_company(
+            company_label,
+            paths["data_blocks"],
+            paths["family_tree"],
+        )
